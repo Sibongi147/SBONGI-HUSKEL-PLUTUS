@@ -1,4 +1,4 @@
-
+HC1T1 - Task 1: Function Composition
 
 ```haskell
 -- double: Multiplies a number by 2
