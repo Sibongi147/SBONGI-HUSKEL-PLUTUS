@@ -1,4 +1,4 @@
--- HC6T2: Implement a recursive function to compute the nth Fibonacci number.
+-- HC6T2:  Fibonacci (Recursive)
 ```haskell
 -- fibonacci: Computes the nth Fibonacci number recursively
 fibonacci :: Integer -> Integer
