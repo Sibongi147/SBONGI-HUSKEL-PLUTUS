@@ -1,4 +1,4 @@
--- HC6T5: Implement a function that reverses a list using recursion.
+-- HC6T5: Reverse a list (Recursive)
 ```haskell
 -- reverseList: Recursively reverses a list
 reverseList :: [a] -> [a]
