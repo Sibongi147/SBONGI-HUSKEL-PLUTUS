@@ -1,4 +1,4 @@
--- HC6T4: Implement a function to compute the product of elements in a list using foldl.
+-- HC6T4: Product of elements using foldr
 ```haskell
 -- productList: Computes the product of elements in a list using foldl
 productList :: Num a => [a] -> a
