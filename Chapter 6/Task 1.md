@@ -1,4 +1,4 @@
--- HC6T1: Factorial (Recursive)
+HC6T1: Factorial (Recursive)
 ```haskell
 -- factorial: Computes the factorial of a non-negative integer recursively
 factorial :: Integer -> Integer
