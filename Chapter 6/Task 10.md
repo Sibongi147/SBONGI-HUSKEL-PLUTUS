@@ -1,4 +1,4 @@
--- HC6T10: Implement a recursive function that takes a number and returns a list of its digits.
+HC6T10: Digits of a Number(Recursive)
 ```haskell
 -- digits: Recursively converts a non-negative number into a list of its digits
 digits :: Integer -> [Integer]
