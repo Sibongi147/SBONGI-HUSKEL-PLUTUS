@@ -1,4 +1,4 @@
--- HC6T7: Implement a function that takes a list and returns the length of the list.
+-- HC6T7: List Length
 ```haskell
 -- listLength: Computes the length of a list recursively
 listLength :: [a] -> Int
