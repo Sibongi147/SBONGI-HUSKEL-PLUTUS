@@ -1,4 +1,4 @@
--- HC6T8: Implement a function that filters all even numbers from a list.
+-- HC6T8: Filter Even Number
 ```haskell
 -- filterEvens: Filters all even numbers from a list
 filterEvens :: [Int] -> [Int]
