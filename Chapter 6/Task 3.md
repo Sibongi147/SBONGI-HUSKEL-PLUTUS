@@ -1,4 +1,4 @@
--- HC6T3: Implement a function to compute the sum of elements in a list using foldr.
+-- HC6T3: Sum of Elements Using foldr
 ```haskell
 -- sumList: Computes the sum of elements in a list using foldr
 sumList :: Num a => [a] -> a
