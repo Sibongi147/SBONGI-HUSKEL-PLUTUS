@@ -1,4 +1,4 @@
--- HC6T9: Implement a function that applies a given function to each element of a list (map implementation).
+-- HC6T9: Map Implementation
 ```haskell
 -- myMap: Applies a function to each element of a list (custom map implementation)
 myMap :: (a -> b) -> [a] -> [b]
