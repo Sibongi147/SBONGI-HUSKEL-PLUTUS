@@ -1,4 +1,4 @@
--- HC6T6: Implement a function that determines whether a given element exists in a list.
+-- HC6T6: Element Exists in list
 ```haskell
 -- elementExists: Checks if an element exists in a list recursively
 elementExists :: Eq a => a -> [a] -> Bool
