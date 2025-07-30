@@ -1,4 +1,4 @@
-# SBONGI-HUSKEL-PLUTUS
+# SBONGILE-HUSKEL-PLUTUS
 
 ---
 
@@ -6,7 +6,7 @@ markdown
 🚀 Project Catalyst: Global University Onboarding Initiative  
 by Tobb Technologies | In collaboration with Cardano
 
-👩🏽‍💻 *Hi, I'm Sibongile, a student at Tobb Technologies Organization. I'm proud to be part of this incredible journey under Project Catalyst to onboard the next generation of Web3 developers through Cardano Smart Contract education and innovation.*
+👩🏽‍💻 *Hi, I am Sibongile, a student at Tobb Technologies Organization. I am proud to be part of this incredible journey under Project Catalyst to onboard the next generation of Web3 developers through Cardano Smart Contract education and innovation.*
 
 ---
 
