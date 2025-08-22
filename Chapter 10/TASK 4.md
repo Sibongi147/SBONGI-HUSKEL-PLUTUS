@@ -1,47 +1,60 @@
 HC10T4: Create a parameterized type Box a and make it an instance of Eq.
+
 ```haskell
--- Define a parameterized data type Box
-data Box a = EmptyBox | FullBox a
-  deriving (Show)
+{-# OPTIONS_GHC -Wall #-}
 
--- Make Box an instance of Eq
+-- Save as: Main.hs
+module Main where
+
+-- | A simple parameterized type that wraps a value of type 'a'.
+data Box a = Box a
+  deriving (Show)  -- for pretty-printing in examples
+
+-- | Make Box an instance of Eq, delegating equality to the inner 'a'.
 instance Eq a => Eq (Box a) where
-  EmptyBox == EmptyBox         = True
-  FullBox x == FullBox y       = x == y
-  _ == _                       = False
+  (Box x) == (Box y) = x == y
+  (Box x) /= (Box y) = x /= y  -- not strictly necessary; default would suffice
 
--- Example usage
+-- Some sample values
+b1 :: Box Int
+b1 = Box 42
+
+b2 :: Box Int
+b2 = Box 42
+
+b3 :: Box Int
+b3 = Box 7
+
 main :: IO ()
 main = do
-  let b1 = FullBox 42
-  let b2 = FullBox 42
-  let b3 = FullBox 7
-  let b4 = EmptyBox
-
-  print (b1 == b2)  -- True
-  print (b1 == b3)  -- False
-  print (b1 == b4)  -- False
-  print (b4 == EmptyBox)  -- True
+  putStrLn "Eq instance for Box demo"
+  print (b1 == b2)    -- True
+  print (b1 == b3)    -- False
+  print (Box "hi" == Box "hi")  -- True
+  print (Box 'a' /= Box 'b')    -- True
 ```
 
----
+### How to run
 
-### ✅ Explanation:
+Using `runghc`:
 
-* `Box a` is a **parameterized type**, meaning it can hold any type `a`.
-* The `Eq` instance ensures:
+```bash
+runghc Main.hs
+```
 
-  * Two `FullBox`es are equal if their contents are equal.
-  * Two `EmptyBox`es are equal.
-  * Otherwise, they’re not equal.
+Or compile:
 
----
+```bash
+ghc -O2 Main.hs -o box-eq
+./box-eq
+```
 
-### 🧪 Expected Output:
+Expected output:
 
 ```
+Eq instance for Box demo
 True
 False
-False
+True
 True
 ```
