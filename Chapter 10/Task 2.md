@@ -1,32 +1,52 @@
 HC10T2: Create a type class Summable that provides a sumUp :: [a] -> a. Implement it for the type Int
+
 ```haskell
--- Define the Summable type class
+{-# OPTIONS_GHC -Wall #-}
+
+-- Save as: Main.hs
+module Main where
+
+-- | A type class with a single method to sum up a list of values.
 class Summable a where
   sumUp :: [a] -> a
 
--- Implement the Summable instance for Int
+-- | Summable instance for Int.
 instance Summable Int where
   sumUp = foldr (+) 0
 
--- Example usage
 main :: IO ()
 main = do
-  let intList = [10, 20, 30, 40]
-  putStrLn $ "Summed result: " ++ show (sumUp intList)
+  putStrLn "Summable Type Class Demo (Int instance)"
+  print (sumUp [1..10]        :: Int) -- 55
+  print (sumUp []             :: Int) -- 0
+  print (sumUp [42, -2, 5]    :: Int) -- 45
 ```
 
 ---
 
-### ✅ Explanation:
+### Run with `runghc`
 
-* `Summable` is a **custom type class** requiring a `sumUp` method for any type `a`.
-* The **instance for `Int`** implements summation using `foldr (+) 0`.
-* The `main` function demonstrates `sumUp` with a list of integers.
+```bash
+runghc Main.hs
+```
+
+### Or compile with `ghc`
+
+```bash
+ghc -O2 Main.hs -o summable
+./summable
+```
+
+**Expected output:**
+
+```
+Summable Type Class Demo (Int instance)
+55
+0
+45
+```
 
 ---
 
-### 🧪 Expected Output:
 
-```
-Summed result: 100
-```
+
