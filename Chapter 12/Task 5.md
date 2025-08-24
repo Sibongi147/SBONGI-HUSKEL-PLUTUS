@@ -1,33 +1,23 @@
 HC12T5
-  ```haskell
--- Program to check if a given string is a palindrome
+ 
+```haskell
+-- Define an infinite list of numbers starting from 1
+infiniteNumbers :: [Integer]
+infiniteNumbers = [1..]
 
--- Function to check palindrome
-isPalindrome :: String -> Bool
-isPalindrome s = s == reverse s
+-- Extract the first n elements from the infinite list
+firstN :: Int -> [Integer]
+firstN n = take n infiniteNumbers
 
+-- Main function to run and display the first 10 numbers
 main :: IO ()
 main = do
-  putStrLn "Enter a string:"
-  input <- getLine
-  if isPalindrome input
-    then putStrLn "The string is a palindrome."
-    else putStrLn "The string is not a palindrome."
+    let n = 10
+    let result = firstN n
+    putStrLn $ "The first " ++ show n ++ " numbers are: " ++ show result
 ```
 
----
-
-### ✅ Explanation:
-
-* `isPalindrome` compares the string to its reverse.
-* `main` reads user input and uses the function to print the result.
-
----
-
-### 🧪 Example Interaction:
-
-```
-Enter a string:
-racecar
-The string is a palindrome.
-```
+### 🧠 How it works:
+- `infiniteNumbers = [1..]` creates an infinite list starting from 1.
+- `take n infiniteNumbers` lazily grabs only the first `n` elements.
+- `main` sets `n = 10` and prints the result.
