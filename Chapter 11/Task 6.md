@@ -1,32 +1,45 @@
 HC11T6: Write a program that reads a line of input, converts it to uppercase, and prints it.
-```haskell
--- HC11T6: Program to read input, convert to uppercase, and print it
 
+```haskell
+-- Uppercase.hs
 import Data.Char (toUpper)
 
 main :: IO ()
 main = do
-  putStrLn "Enter a line of text:"
-  line <- getLine
-  let upperLine = map toUpper line
-  putStrLn $ "Uppercase: " ++ upperLine
+    putStrLn "Enter a line of text:"
+    line <- getLine
+    let upperLine = map toUpper line
+    putStrLn ("Uppercase: " ++ upperLine)
 ```
 
 ---
 
-### ✅ Explanation:
+### ✅ How to Run
 
-* Imports `toUpper` from `Data.Char`.
-* Reads a line using `getLine`.
-* Converts each character to uppercase using `map toUpper`.
-* Prints the uppercase string.
+1. Save as `Uppercase.hs`.
+2. Open a terminal in that folder.
+3. Compile:
 
+```bash
+ghc Uppercase.hs -o uppercase
+```
+
+4. Run:
+
+```bash
+./uppercase     # Linux/macOS
+uppercase.exe   # Windows
+```
 ---
 
-### 🧪 Example interaction:
+### 💻 Example Run
 
 ```
 Enter a line of text:
 Hello, Haskell!
 Uppercase: HELLO, HASKELL!
 ```
+
+---
+
+
