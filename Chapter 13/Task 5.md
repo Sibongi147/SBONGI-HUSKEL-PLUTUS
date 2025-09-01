@@ -1,21 +1,52 @@
-HC13T5
-```haskell
-module SumNonEmpty (sumNonEmpty) where
+HC13T5: Refactor the sumNonEmpty function to restrict the visibility of helper functions like error messages in the module export list. 
 
--- Public function
+---
+
+```haskell
+module Main where
+
+-- local "module-like" code
 sumNonEmpty :: Num a => [a] -> a
-sumNonEmpty [] = emptyListError
+sumNonEmpty [] = error "sumNonEmpty: cannot sum an empty list"
 sumNonEmpty xs = sum xs
 
--- Helper function (not exported)
-emptyListError :: a
-emptyListError = error "sumNonEmpty: empty list"
+main :: IO ()
+main = do
+    putStrLn "Testing sumNonEmpty:"
+    print (sumNonEmpty [1, 2, 3, 4])   -- should print 10
+    print (sumNonEmpty [10])           -- should print 10
+    -- Uncomment the next line to see the error in action:
+    -- print (sumNonEmpty [])
 ```
 
 ---
 
-### Explanation:
+## 🛠 Run it
 
-* Only `sumNonEmpty` is exported.
-* `emptyListError` is a helper function hidden from outside the module.
-* This encapsulates the error message, improving module interface design.
+### Option 1 — without compiling
+
+```bash
+runghc Main.hs
+```
+
+### Option 2 — compile to executable
+
+```bash
+ghc Main.hs -o sumtest
+./sumtest        # Linux/macOS
+sumtest.exe      # Windows
+```
+
+---
+
+✅ Expected output:
+
+```
+Testing sumNonEmpty:
+10
+10
+```
+
+---
+
+
