@@ -1,23 +1,40 @@
 HC12T5
- 
+
 ```haskell
--- Define an infinite list of numbers starting from 1
-infiniteNumbers :: [Integer]
-infiniteNumbers = [1..]
+-- Palindrome.hs
+import Data.Char (toLower, isAlphaNum)
 
--- Extract the first n elements from the infinite list
-firstN :: Int -> [Integer]
-firstN n = take n infiniteNumbers
+-- Checks if a string is a palindrome (ignores case and non-alphanumerics)
+isPalindrome :: String -> Bool
+isPalindrome str =
+  let cleaned = map toLower (filter isAlphaNum str)
+  in cleaned == reverse cleaned
 
--- Main function to run and display the first 10 numbers
 main :: IO ()
 main = do
-    let n = 10
-    let result = firstN n
-    putStrLn $ "The first " ++ show n ++ " numbers are: " ++ show result
+  putStrLn "Enter a string to check if it's a palindrome:"
+  input <- getLine
+  putStrLn $
+    if isPalindrome input
+      then "✅ Yes, it's a palindrome!"
+      else "❌ No, it's not a palindrome."
 ```
 
-### 🧠 How it works:
-- `infiniteNumbers = [1..]` creates an infinite list starting from 1.
-- `take n infiniteNumbers` lazily grabs only the first `n` elements.
-- `main` sets `n = 10` and prints the result.
+### How to run
+
+**Compile (Linux/macOS):**
+
+```bash
+ghc Palindrome.hs -o palindrome
+./palindrome
+```
+
+**Example:**
+
+```
+Enter a string to check if it's a palindrome:
+Never odd or even
+✅ Yes, it's a palindrome!
+```
+
+
