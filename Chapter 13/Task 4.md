@@ -1,8 +1,6 @@
-HC13T4
+HC13T4: Write a Haskell module named SumNonEmpty that defines a function sumNonEmpty, which returns an error if called on an empty list.
 
 ---
-
-## ✅ Working Code (one file)
 
 ```haskell
 -- SumNonEmpty.hs
