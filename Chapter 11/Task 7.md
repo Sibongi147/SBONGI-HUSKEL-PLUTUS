@@ -1,54 +1,88 @@
 -- HC11T7: Write a program that prints a list of options to the user and executes different code based on the user's choice.
 ```haskell
 
+Here’s a **simple menu-driven Haskell program** that prints a list of options, takes the user’s choice, and executes different code accordingly:
+
+```haskell
+-- Menu.hs
 main :: IO ()
-main = menuLoop
-
-menuLoop :: IO ()
-menuLoop = do
-  putStrLn "\n=== MENU ==="
-  putStrLn "1. Say Hello"
-  putStrLn "2. Show a Fun Fact"
-  putStrLn "3. Exit"
-  putStr "Enter your choice (1-3): "
-  choice <- getLine
-  case choice of
-    "1" -> do
-      putStrLn "Hello! Hope you're having a great day!"
-      menuLoop
-    "2" -> do
-      putStrLn "Fun Fact: Haskell is named after the logician Haskell Curry!"
-      menuLoop
-    "3" -> putStrLn "Goodbye!"
-    _   -> do
-      putStrLn "Invalid choice. Please try again."
-      menuLoop
+main = do
+    putStrLn "Choose an option:"
+    putStrLn "1. Greet"
+    putStrLn "2. Add two numbers"
+    putStrLn "3. Exit"
+    choice <- getLine
+    case choice of
+        "1" -> do
+            putStrLn "What is your name?"
+            name <- getLine
+            putStrLn ("Hello, " ++ name ++ "!")
+        "2" -> do
+            putStrLn "Enter the first number:"
+            n1 <- getLine
+            putStrLn "Enter the second number:"
+            n2 <- getLine
+            let a = read n1 :: Int
+                b = read n2 :: Int
+            putStrLn ("The sum is: " ++ show (a + b))
+        "3" -> putStrLn "Goodbye!"
+        _   -> putStrLn "Invalid choice! Please try again."
 ```
 
 ---
 
-### ✅ How It Works:
+### ✅ How to Run
 
-* The `menuLoop` function displays the menu and handles the user's choice.
-* It continues looping until the user selects option `"3"` to exit.
-* Each valid choice executes a different action; invalid inputs prompt the user to try again.
+1. Save the file as `Menu.hs`.
+2. Compile:
+
+```bash
+ghc Menu.hs -o menu
+```
+
+3. Run:
+
+```bash
+./menu      # Linux/macOS
+menu.exe    # Windows
+```
+
+**Or run directly without compiling:**
+
+```bash
+runghc Menu.hs
+```
 
 ---
 
-### 🧪 Sample Interaction:
+### 💻 Example Run
 
 ```
-=== MENU ===
-1. Say Hello
-2. Show a Fun Fact
+Choose an option:
+1. Greet
+2. Add two numbers
 3. Exit
-Enter your choice (1-3): 2
-Fun Fact: Haskell is named after the logician Haskell Curry!
-
-=== MENU ===
-1. Say Hello
-2. Show a Fun Fact
-3. Exit
-Enter your choice (1-3): 3
-Goodbye!
+1
+What is your name?
+Bongi
+Hello, Bongi!
 ```
+
+or
+
+```
+Choose an option:
+1. Greet
+2. Add two numbers
+3. Exit
+2
+Enter the first number:
+5
+Enter the second number:
+7
+The sum is: 12
+```
+
+---
+
+
