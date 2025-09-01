@@ -1,28 +1,64 @@
-HC13T8
+HC13T8: Demonstrate how to handle name conflicts between two imported modules, using qualified imports. 
+
+
 ```haskell
-import qualified Data.List as List
-import qualified Data.Map as Map
+module Main where
+
+import qualified Data.List as L
+import qualified Data.Map as M
 
 main :: IO ()
 main = do
-  let nums = [3,1,4,1,5,9,2,6,5]
-  
-  -- Use 'sort' from Data.List qualified as List
-  let sortedNums = List.sort nums
-  
-  -- Use 'lookup' from Data.Map qualified as Map
-  let sampleMap = Map.fromList [(1, "one"), (2, "two"), (3, "three")]
-  let maybeVal = Map.lookup 2 sampleMap
-  
-  putStrLn $ "Sorted numbers: " ++ show sortedNums
-  putStrLn $ "Lookup result for key 2: " ++ show maybeVal
+    let list1 = [5, 3, 9, 1]
+        list2 = [("a", 1), ("b", 2), ("c", 3)]
+
+    -- Using Data.List.sort (qualified)
+    putStrLn "Sorting list using Data.List.sort:"
+    print (L.sort list1)
+
+    -- Using Data.Map.fromList (qualified)
+    putStrLn "\nCreating map using Data.Map.fromList:"
+    print (M.fromList list2)
 ```
 
 ---
 
-### Explanation:
+### ✅ How to Run
 
-* Both `Data.List` and `Data.Map` define some functions with common names (e.g., `lookup`).
-* To avoid naming conflicts, we import both modules qualified with aliases (`List` and `Map`).
-* Then we prefix functions with the alias to specify which module’s function to use.
-* This keeps the namespace clear and prevents clashes.
+1. Save as `Main.hs`.
+2. Run without compiling:
+
+```bash
+runghc Main.hs
+```
+
+3. Or compile:
+
+```bash
+ghc Main.hs -o main
+./main        # Linux/macOS
+main.exe      # Windows
+```
+
+---
+
+### ✅ Expected Output
+
+```
+Sorting list using Data.List.sort:
+[1,3,5,9]
+
+Creating map using Data.Map.fromList:
+fromList [("a",1),("b",2),("c",3)]
+```
+
+---
+
+### ✅ Key Points
+
+* `import qualified ModuleName as Alias` allows you to use functions with the same name from different modules without conflicts.
+* Here, `L.sort` and `M.fromList` demonstrate qualified usage.
+* No extra files are needed — fully runnable in one file.
+
+---
+
