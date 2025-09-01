@@ -1,21 +1,58 @@
-HC13T6
+HC13T6: Create a function that uses Data.Map to convert a list of filtered file names into a key-value map. 
+
 ```haskell
+module Main where
+
 import qualified Data.Map as Map
+import System.FilePath (takeBaseName)
 
--- | Converts a list of file names into a Map where
--- the key is the file name and the value is its length
-fileNamesToMap :: [String] -> Map.Map String Int
-fileNamesToMap files = Map.fromList [(file, length file) | file <- files]
+-- | Convert a list of file names into a Map.
+--   Key   = filename without extension
+--   Value = full filename
+filenamesToMap :: [FilePath] -> Map.Map String FilePath
+filenamesToMap files =
+    Map.fromList [(takeBaseName f, f) | f <- files]
 
--- Example usage:
--- fileNamesToMap ["test.txt", "hello.hs", "data.csv"]
--- Result: fromList [("data.csv",8),("hello.hs",8),("test.txt",8)]
+main :: IO ()
+main = do
+    let files = ["report.txt", "image.png", "notes.md"]
+        fileMap = filenamesToMap files
+
+    putStrLn "File map (key = base name, value = full name):"
+    print fileMap
+
+    -- Example lookup
+    putStrLn "\nLooking up key 'report':"
+    print (Map.lookup "report" fileMap)
 ```
 
 ---
 
-### Explanation:
+## 🛠 How to run
 
-* Uses `Data.Map.fromList` to create a map from a list of key-value tuples.
-* Keys are file names, values are the length of each file name.
-* You can customize the value as needed (e.g., file size, last modified date).
+```bash
+runghc Main.hs
+```
+
+or compile:
+
+```bash
+ghc Main.hs -o filemap
+./filemap        # Linux/macOS
+filemap.exe      # Windows
+```
+
+---
+
+## ✅ Expected output
+
+```
+File map (key = base name, value = full name):
+fromList [("image","image.png"),("notes","notes.md"),("report","report.txt")]
+
+Looking up key 'report':
+Just "report.txt"
+```
+
+---
+
