@@ -28,14 +28,6 @@ ghc Greeting.hs -o greeting
 greeting.exe   # Windows
 ```
 
-**Or run without compiling:**
-
-```bash
-runghc Greeting.hs
-```
-
----
-
 ### Example Run
 
 ```
