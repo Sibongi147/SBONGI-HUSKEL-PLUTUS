@@ -1,27 +1,47 @@
 -- HC11T1: Write a program that asks the user for their name and prints a greeting.
-```haskell
--- HC11T1: Simple greeting program
 
+```haskell
+-- Greeting.hs
 main :: IO ()
 main = do
-  putStrLn "What is your name?"
-  name <- getLine
-  putStrLn $ "Hello, " ++ name ++ "!"
+    putStrLn "What is your name?"
+    name <- getLine
+    putStrLn ("Hello, " ++ name ++ "! Welcome to Haskell!")
 ```
 
 ---
 
-### ✅ Explanation:
+### How to Run
 
-* `getLine` reads a line of input from the user.
-* The program then prints a greeting with the user's name.
+1. Save the file as `Greeting.hs`.
+2. Open a terminal in the folder containing `Greeting.hs`.
+3. Compile:
+
+```bash
+ghc Greeting.hs -o greeting
+```
+
+4. Run:
+
+```bash
+./greeting     # Linux / macOS
+greeting.exe   # Windows
+```
+
+**Or run without compiling:**
+
+```bash
+runghc Greeting.hs
+```
 
 ---
 
-### 🧪 Example interaction:
+### Example Run
 
 ```
 What is your name?
-Alice
-Hello, Alice!
+Sibongile
+Hello, Sibongile! Welcome to Haskell!
 ```
+
+
