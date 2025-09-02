@@ -2,53 +2,43 @@
 
 ---
 
-### ✅ Haskell Code (Markdown-Compatible)
+### 🚗 Basic Self-Driving AI Car Logic in Haskell
 
-```haske
+```haskell
+-- Self-driving AI car reacting to traffic light colors
 
 module Main where
 
--- Define a data type for traffic lights
-data TrafficLight = Red | Yellow | Green deriving (Show, Read, Eq)
+-- Define traffic light colors
+data TrafficLight = Red | Yellow | Green deriving (Show, Eq)
 
--- Define the AI car reaction to the traffic light
+-- AI car decision function
 reactToLight :: TrafficLight -> String
 reactToLight light = case light of
-  Red    -> "Stop the car."
-  Yellow -> "Slow down and prepare to stop."
-  Green  -> "Proceed with caution."
+  Red    -> "STOP: The car halts at the red light."
+  Yellow -> "CAUTION: The car slows down and prepares to stop."
+  Green  -> "GO: The car proceeds through the intersection."
 
--- Main function to simulate interaction
+-- Simulate traffic light sequence
+simulateTraffic :: [TrafficLight] -> IO ()
+simulateTraffic lights = mapM_ (putStrLn . reactToLight) lights
+
+-- Main function
 main :: IO ()
 main = do
-  putStrLn "Enter traffic light color (Red, Yellow, Green):"
-  input <- getLine
-  let maybeLight = readMaybe input :: Maybe TrafficLight
-  case maybeLight of
-    Just light -> putStrLn $ "AI Reaction: " ++ reactToLight light
-    Nothing    -> putStrLn "Invalid traffic light color. Try Red, Yellow, or Green."
-
--- Needed for safe parsing
-import Text.Read (readMaybe)
+  let sequence = [Green, Yellow, Red, Green, Red]
+  putStrLn "🚦 Self-driving car reacting to traffic lights:"
+  simulateTraffic sequence
 ```
 
 ---
 
-### 🔍 How it works:
+### 🧪 What It Does
 
-* Defines a `TrafficLight` data type.
-* Uses `readMaybe` to safely parse user input.
-* Pattern matching determines the car's behavior.
+- Defines a `TrafficLight` type with three states.
+- Uses pattern matching to decide how the car reacts.
+- Simulates a sequence of lights and prints the car’s response.
 
----
 
-### 🧪 Example Interaction:
-
-```
-Enter traffic light color (Red, Yellow, Green):
-Red
-AI Reaction: Stop the car.
-```
 
 ---
-
