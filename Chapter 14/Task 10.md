@@ -1,94 +1,37 @@
-HC14T10
+HC14T10: Write a cabal test suite for a module that verifies correct behavior of the counts function. 
 
----
-
-### 📁 Project Structure
-
-```
-my-project/
-├── app/
-│   └── Main.hs
-├── src/
-│   └── Lib.hs        -- contains `counts` function
-├── test/
-│   └── Spec.hs       -- contains test suite
-├── my-project.cabal
-```
-
----
-
-### ✅ `src/Lib.hs`
 
 ```haskell
-module Lib (counts) where
-
 import Data.List (group, sort)
 
--- Counts character frequency in a string
+-- Function to count occurrences of each character
 counts :: String -> [(Char, Int)]
-counts str = map (\g -> (head g, length g)) . group . sort $ str
-```
+counts str = map (\xs -> (head xs, length xs)) . group . sort $ str
 
----
+-- Simple test runner
+assertEqual :: (Eq a, Show a) => String -> a -> a -> IO ()
+assertEqual label expected actual =
+  if expected == actual
+    then putStrLn $ "✅ " ++ label ++ " passed."
+    else putStrLn $ "❌ " ++ label ++ " failed. Expected: " ++ show expected ++ ", but got: " ++ show actual
 
-### ✅ `test/Spec.hs`
-
-```haskell
-module Main (main) where
-
-import Test.HUnit
-import Lib (counts)
-import Data.List (sort)
-
-testCounts :: Test
-testCounts = TestCase $ do
-  let result = sort (counts "haskell")
-  let expected = sort [('a',1), ('e',1), ('h',1), ('k',1), ('l',2), ('s',1)]
-  assertEqual "counts of 'haskell'" expected result
-
+-- Main test suite
 main :: IO ()
-main = runTestTTAndExit $ TestList [testCounts]
+main = do
+  putStrLn "Running tests for counts function..."
+  assertEqual "Test 1: Empty string" [] (counts "")
+  assertEqual "Test 2: Single char" [('a',1)] (counts "a")
+  assertEqual "Test 3: Repeated chars" [('a',3),('b',2)] (counts "aaabb")
+  assertEqual "Test 4: Mixed chars" [('e',1),('h',1),('l',2),('o',1)] (counts "hello")
+  assertEqual "Test 5: With spaces" [(' ',2),('a',3)] (counts "a a a")
 ```
 
 ---
 
-### ✅ Update your `.cabal` file
+### 🧪 How to Run
 
-```cabal
-cabal-version:       >=1.10
-name:                my-project
-version:             0.1.0.0
-build-type:          Simple
-
-library
-  exposed-modules:     Lib
-  hs-source-dirs:      src
-  build-depends:       base >=4.7 && <5
-  default-language:    Haskell2010
-
-executable my-project-exe
-  main-is:             Main.hs
-  hs-source-dirs:      app
-  build-depends:       base >=4.7 && <5,
-                       my-project
-  default-language:    Haskell2010
-
-test-suite my-project-test
-  type:                exitcode-stdio-1.0
-  hs-source-dirs:      test
-  main-is:             Spec.hs
-  build-depends:       base >=4.7 && <5,
-                       HUnit,
-                       my-project
-  default-language:    Haskell2010
-```
-
----
-
-### 🧪 Run the Test Suite
-
-```bash
-cabal test
-```
-
----
+- **Online**
+- **Local**: Save as `CountsTest.hs` and run:
+  ```bash
+  runghc CountsTest.hs
+  ```
