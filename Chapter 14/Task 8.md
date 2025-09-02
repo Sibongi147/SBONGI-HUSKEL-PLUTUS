@@ -1,38 +1,33 @@
-HC14T8
+HC14T8: Implement a function counts that returns a list of tuples showing character frequency in a string. 
 
 ```haskell
--- Frequency.hs
+-- Save this as Main.hs and run with: runghc Main.hs
+
 import Data.List (group, sort)
 
--- | Counts the frequency of each character in a string
+-- Function to count character frequencies
 counts :: String -> [(Char, Int)]
-counts str = map (\g -> (head g, length g)) . group . sort $ str
+counts str = map (\xs -> (head xs, length xs)) . group . sort $ str
 
--- | Example usage in main
+-- Example usage
 main :: IO ()
 main = do
   let input = "hello world"
-  let freq = counts input
-  putStrLn "Character frequencies:"
-  mapM_ print freq
+  print (counts input)
 ```
 
-### 📝 Explanation:
+---
 
-* `sort str`: sorts the characters to bring duplicates together.
-* `group`: groups adjacent equal elements into sublists.
-* `map (\g -> (head g, length g))`: transforms each group into a tuple of (character, count).
+### 🧠 How It Works
 
-### ✅ Example output for `"hello world"`:
+- `sort str`: sorts the string so identical characters are adjacent.
+- `group`: groups adjacent identical characters into sublists.
+- `map (\xs -> (head xs, length xs))`: converts each group into a tuple of the character and its count.
 
-```
-Character frequencies:
-(' ',1)
-('d',1)
-('e',1)
-('h',1)
-('l',3)
-('o',2)
-('r',1)
-('w',1)
+---
+
+### 🧪 Output for `"hello world"`
+
+```haskell
+[(' ',1),('d',1),('e',1),('h',1),('l',3),('o',2),('r',1),('w',1)]
 ```
