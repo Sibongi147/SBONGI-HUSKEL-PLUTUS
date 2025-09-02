@@ -8,7 +8,12 @@ main = do
     putStrLn ("You entered: " ++ show num)
 ```
 
+This will **run fine** in OnlineGDB.
 
+---
+
+
+Then you can run:
 
 ```bash
 cabal install random
@@ -16,6 +21,4 @@ runghc Main.hs
 ```
 
 
-
 ---
-
