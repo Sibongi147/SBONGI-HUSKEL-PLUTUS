@@ -1,35 +1,61 @@
-HC14T5
+HC14T5: Write a Haskell program that uses a custom data type Result a and demonstrate pattern matching using the @ symbol. 
 
-* Defines a custom data type `Result a`
-* Uses pattern matching with the `@` symbol (as-pattern) to match and refer to the entire structure
+## ✅ Haskell Program: `Result a` and As-Pattern
 
-````haskell
 ```haskell
-module Main where
+-- Enable strict warnings
+{-# OPTIONS_GHC -Wall #-}
 
--- Define the Result data type
-data Result a = Success a | Error String
-  deriving Show
+-- Define a custom data type
+data Result a = Success a | Failure String
+    deriving Show
 
--- A function to handle Result using pattern matching with @
-handleResult :: Show a => Result a -> String
-handleResult r@(Success val) = "Got a success: " ++ show r ++ " with value: " ++ show val
-handleResult e@(Error msg)   = "Oops! " ++ show e ++ " - Reason: " ++ msg
+-- Function that demonstrates pattern matching with @
+describeResult :: Result Int -> String
+describeResult r@(Success value) =
+    "Got a Success with value " ++ show value ++ ", full result: " ++ show r
+describeResult (Failure msg) =
+    "Operation failed with message: " ++ msg
 
 main :: IO ()
 main = do
-  let res1 = Success 42
-  let res2 = Error "Something went wrong"
-  putStrLn $ handleResult res1
-  putStrLn $ handleResult res2
+    let r1 = Success 42
+        r2 = Failure "Something went wrong"
+
+    putStrLn $ describeResult r1
+    putStrLn $ describeResult r2
 ```
-````
 
 ---
 
-### 🔍 Explanation:
+### 🔹 How it works
 
-* `@` lets you name the entire pattern (`r` or `e`) while still matching on the internal structure.
-* For example, in `r@(Success val)`, `r` refers to the whole `Success` value, and `val` binds the inside.
-* This is helpful when you need to print both the whole structure and its parts.
+1. `data Result a = Success a | Failure String`
+
+   * A generic result type: either `Success a` or `Failure String`.
+
+2. `r@(Success value)` is an **as-pattern**:
+
+   * `r` captures the **whole `Success` value**.
+   * `value` captures just the inner value.
+   * Lets you access both at once.
+
+3. Pattern matching handles both `Success` and `Failure` cases.
+
+4. `describeResult` prints a message based on the pattern.
+
+---
+
+### 🔹 Example Output
+
+```
+Got a Success with value 42, full result: Success 42
+Operation failed with message: Something went wrong
+```
+
+---
+
+
+
+
 
