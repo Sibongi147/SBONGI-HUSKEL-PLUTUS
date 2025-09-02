@@ -1,25 +1,31 @@
-HC14T9
+HC14T9: Use the language extension PartialTypeSignatures to allow wildcard types in a function signature 
 
-````haskell
 ```haskell
 {-# LANGUAGE PartialTypeSignatures #-}
 
-module Main where
+import Data.List (group, sort)
 
--- Function with a partial type signature using wildcard
-exampleFunction :: _ => [Int] -> Int
-exampleFunction xs = sum (take 3 xs)
+-- Function with a partial type signature
+counts :: _ => String -> [(Char, Int)]
+counts str = map (\xs -> (head xs, length xs)) . group . sort $ str
 
 main :: IO ()
 main = do
-  let result = exampleFunction [1, 2, 3, 4, 5]
-  putStrLn $ "Sum of first 3 elements: " ++ show result
+  let input = "hello world"
+  print (counts input)
 ```
-````
 
-### ✅ Notes:
+---
 
-* `{-# LANGUAGE PartialTypeSignatures #-}` enables partial (wildcard) type signatures.
-* The `_ =>` wildcard allows GHC to infer the necessary constraints (like `Num Int` in this case).
-* This is useful for experimenting or for simplifying type annotations while developing.
+### 🧠 What GHC Infers
+
+The wildcard `_` will be inferred as `Ord Char` because `sort` requires ordering. So the full type would be:
+
+```haskell
+counts :: Ord Char => String -> [(Char, Int)]
+```
+
+But thanks to `PartialTypeSignatures`, you don’t need to write that out explicitly.
+
+---
 
