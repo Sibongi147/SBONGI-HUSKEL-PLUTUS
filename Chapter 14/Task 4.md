@@ -1,4 +1,4 @@
-HC14T4
+HC14T4:Enable the TypeApplications extension and create a function that reads a String and converts it to an Int using read
 
 ---
 
