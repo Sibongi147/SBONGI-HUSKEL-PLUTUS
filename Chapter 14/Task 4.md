@@ -1,28 +1,38 @@
 HC14T4
 
-````haskell
+---
+
+## ✅ Haskell Code: Using `TypeApplications` to Convert String to Int
+
 ```haskell
 {-# LANGUAGE TypeApplications #-}
 
-module Main where
-
-stringToInt :: String -> Int
-stringToInt = read @Int
-
 main :: IO ()
 main = do
-  putStrLn "Enter a number:"
-  input <- getLine
-  let number = stringToInt input
-  putStrLn $ "You entered: " ++ show number
+    putStrLn "Enter a number as a string:"
+    input <- getLine
+    let number = read @Int input  -- Using TypeApplications to specify Int
+    putStrLn $ "You entered the number: " ++ show number
 ```
-````
 
 ---
 
-### ✅ Explanation
+### 🔹 How it works
 
-* `{-# LANGUAGE TypeApplications #-}` enables the use of `@Type` syntax.
-* `read @Int` explicitly tells the compiler to parse the string as an `Int`.
-* This approach is useful when type inference is ambiguous or when you want to make the type explicit.
+1. `{-# LANGUAGE TypeApplications #-}` enables explicit type annotations for functions like `read`.
+2. `read @Int input` tells Haskell: “Convert this string to an `Int`”.
+3. `getLine` reads input from the user as a `String`.
+4. `show` converts the `Int` back to a `String` for printing.
+
+---
+
+### 🔹 Example Run
+
+```
+Enter a number as a string:
+42
+You entered the number: 42
+```
+
+---
 
