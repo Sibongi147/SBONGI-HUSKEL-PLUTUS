@@ -1,34 +1,44 @@
 HC16T8
 
-````haskell
 ```haskell
--- | Insertion sort implementation in Haskell
-
--- Inserts an element into the correct position in a sorted list
+-- Insertion function: inserts an element into a sorted list
 insert :: Int -> [Int] -> [Int]
 insert x [] = [x]
 insert x (y:ys)
-  | x <= y    = x : y : ys
-  | otherwise = y : insert x ys
+    | x <= y    = x : y : ys
+    | otherwise = y : insert x ys
 
--- Sorts a list using insertion sort
+-- Insertion sort: recursively sorts the list
 insertionSort :: [Int] -> [Int]
 insertionSort [] = []
 insertionSort (x:xs) = insert x (insertionSort xs)
 
--- Example usage
+-- Main function to test it interactively
 main :: IO ()
 main = do
-  let unsortedList = [5, 2, 9, 1, 3]
-  let sortedList = insertionSort unsortedList
-  putStrLn $ "Sorted list: " ++ show sortedList
+    putStrLn "Enter a list of integers separated by spaces:"
+    input <- getLine
+    let numbers = map read $ words input :: [Int]
+    let sorted = insertionSort numbers
+    putStrLn $ "Sorted list: " ++ show sorted
 ```
-````
 
-### ✅ How it works:
+---
 
-* `insert` places a single integer into its proper position in a sorted list.
-* `insertionSort` recursively sorts the tail of the list and inserts the head into the sorted result.
-* The example sorts the list `[5, 2, 9, 1, 3]`.
+### 🧠 How It Works
+- `insert x xs`: places `x` into the correct position in a sorted list `xs`.
+- `insertionSort`: recursively sorts the tail and inserts the head.
+- `map read $ words input`: converts user input into a list of integers.
 
-Let me know if you'd like it generalized to work with any `Ord` type instead of just `Int`.
+---
+
+### 🧪 Example Input
+```
+Enter a list of integers separated by spaces:
+5 3 8 1 2
+```
+
+Output:
+```
+Sorted list: [1,2,3,5,8]
+```
