@@ -1,25 +1,41 @@
 HC16T5
 
-````haskell
+---
+
+### 🔠 Convert String to Uppercase in Haskell
+
 ```haskell
 import Data.Char (toUpper)
 
--- | Convert all characters in a string to uppercase
+-- Function to convert all characters to uppercase
 toUpperCase :: String -> String
 toUpperCase = map toUpper
 
--- Example usage
+-- Main function to test it
 main :: IO ()
 main = do
-  putStrLn "Enter a string:"
-  input <- getLine
-  putStrLn "Uppercase version:"
-  putStrLn (toUpperCase input)
+    putStrLn "Enter a string:"
+    input <- getLine
+    let uppercased = toUpperCase input
+    putStrLn $ "Uppercase version: " ++ uppercased
 ```
-````
 
-### ✅ What It Does:
+---
 
-* `toUpperCase` maps the `toUpper` function (from `Data.Char`) over each character in the string.
-* The `main` function gets input from the user and prints the uppercase version.
+### 🧠 How It Works
+- `map toUpper`: applies the `toUpper` function to each character in the string.
+- `toUpper` comes from `Data.Char`, so we import it at the top.
+
+---
+
+### 🧪 Example Input
+```
+Enter a string:
+hello world
+```
+
+Output:
+```
+Uppercase version: HELLO WORLD
+```
 
