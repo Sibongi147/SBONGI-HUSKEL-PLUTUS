@@ -1,33 +1,31 @@
 HC17T2
 
-````haskell
+
 ```haskell
--- Define Min newtype
-newtype Min a = Min a deriving (Show, Eq, Ord)
+-- Define Min and Max newtypes
+newtype Min a = Min a deriving (Eq, Ord, Show)
+newtype Max a = Max a deriving (Eq, Ord, Show)
 
--- Define Max newtype
-newtype Max a = Max a deriving (Show, Eq, Ord)
-
--- Semigroup instance for Min
+-- Semigroup instance for Min: always choose the smaller value
 instance Ord a => Semigroup (Min a) where
   Min x <> Min y = Min (min x y)
 
--- Semigroup instance for Max
+-- Semigroup instance for Max: always choose the larger value
 instance Ord a => Semigroup (Max a) where
   Max x <> Max y = Max (max x y)
 
 -- Example usage
 main :: IO ()
 main = do
-  print (Min 3 <> Min 7)     -- Min 3
-  print (Max 3 <> Max 7)     -- Max 7
-  print (Min 42 <> Min 19)   -- Min 19
-  print (Max 1 <> Max 1)     -- Max 1
+  print (Min 3 <> Min 7)     -- Output: Min 3
+  print (Max 3 <> Max 7)     -- Output: Max 7
+  print (Min 42 <> Min 19)   -- Output: Min 19
+  print (Max 42 <> Max 19)   -- Output: Max 42
 ```
-````
 
-### ✅ Notes:
+---
 
-* `newtype` is used for type safety and clearer intent.
-* These instances are useful in fold operations where you want to track minimum or maximum values.
+### 🧪 Notes
+- These wrappers are useful in fold operations where you want to track the minimum or maximum value.
+- You can also add `Monoid` instances if you provide a sensible identity (e.g., `Min maxBound`, `Max minBound`), depending on the type.
 
