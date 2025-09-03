@@ -1,28 +1,26 @@
 HC17T1
 
-````haskell
 ```haskell
--- Define Severity data type
+-- Define the Severity data type
 data Severity = Low | Medium | High | Critical
-  deriving (Show, Eq, Ord)
+  deriving (Eq, Ord, Show)
 
--- Implement Semigroup instance
+-- Semigroup instance: higher severity overrides lower one
 instance Semigroup Severity where
-  (<>) = max  -- The higher severity overrides the lower one
+  (<>) = max
 
--- Example usage
+-- Example usage in a main function
 main :: IO ()
 main = do
-  print (Low <> Medium)      -- Medium
-  print (High <> Critical)   -- Critical
-  print (Medium <> Low)      -- Medium
-  print (High <> High)       -- High
+  print (Low <> Medium)     -- Output: Medium
+  print (High <> Critical)  -- Output: Critical
+  print (Medium <> Low)     -- Output: Medium
+  print (High <> High)      -- Output: High
 ```
-````
 
-### ✅ Explanation:
+### ✅ How to Run It:
+Paste this into your Haskell file (e.g. `main.hs`) and run it using an online compiler like [OnlineGDB’s Haskell editor](https://www.onlinegdb.com/online_haskell_compiler). Make sure:
+- You don’t include Markdown formatting like triple backticks (` ``` `).
+- You start with actual Haskell code, not a comment block.
 
-* The `Ord` instance is automatically derived, which gives us the ability to compare severities.
-* `(<>) = max` uses the `max` function to return the higher severity when two are combined.
-* This makes `Severity` suitable for combining values where you want to retain the most severe outcome.
 
