@@ -1,38 +1,26 @@
 HC17T3
 
 ```haskell
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric #-}
-
-import Data.Semigroup
-import Data.Monoid
-
--- Severity data type with four levels
+-- Define the Severity data type
 data Severity = Low | Medium | High | Critical
-  deriving (Show, Eq, Ord)
+  deriving (Eq, Ord, Show)
 
--- Semigroup instance: higher severity overrides lower
+-- Semigroup instance: higher severity overrides lower one
 instance Semigroup Severity where
-  s1 <> s2 = max s1 s2
+  (<>) = max
 
 -- Monoid instance: identity is Low
 instance Monoid Severity where
   mempty = Low
-  mappend = (<>)
 
--- Example usage
+-- Main function to test the Monoid behavior
 main :: IO ()
 main = do
-  print $ Low <> Medium      -- Medium
-  print $ High <> Medium     -- High
-  print $ mempty <> Critical -- Critical
-  print $ mempty            -- Low
+  print (mempty <> Medium)     -- Output: Medium
+  print (High <> mempty)       -- Output: High
+  print (mconcat [Low, Medium, Critical]) -- Output: Critical
 ```
 
-**Explanation:**
+### ✅ How to Run It
+Paste this directly into the OnlineGDB Haskell editor **without any Markdown formatting**—just the raw code. That should fix the compilation error.
 
-* `Semigroup` defines `<>` as taking the maximum severity.
-* `Monoid` sets `mempty` to `Low` (identity for severity combining).
-* `mappend` is defined as `<>` from the `Semigroup` instance.
-
-This means combining severities always picks the higher one, and `Low` acts as the neutral starting point.
