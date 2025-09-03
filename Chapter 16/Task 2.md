@@ -1,29 +1,28 @@
 HC16T2
-````haskell
+
 ```haskell
+import Data.Char (toLower, isAlphaNum)
+
 -- Function to check if a string is a palindrome
 isPalindrome :: String -> Bool
 isPalindrome str = cleaned == reverse cleaned
   where
-    cleaned = map toLower $ filter (/= ' ') str  -- remove spaces and make lowercase
+    cleaned = map toLower $ filter isAlphaNum str
 
--- Example usage in main
-import Data.Char (toLower)
-
+-- Main function to test it interactively
 main :: IO ()
 main = do
-  putStrLn "Enter a word or phrase:"
-  input <- getLine
-  if isPalindrome input
-    then putStrLn "It's a palindrome!"
-    else putStrLn "Not a palindrome."
+    putStrLn "Enter a string to check for palindrome:"
+    input <- getLine
+    if isPalindrome input
+        then putStrLn "Yes, it's a palindrome!"
+        else putStrLn "Nope, not a palindrome."
 ```
-````
+What It Does:
+Prompts the user for input.
 
-### ✅ How it works:
+Reads the string.
 
-* Removes spaces from the string and converts it to lowercase for accurate comparison.
-* Compares the cleaned string with its reverse.
+Passes it to isPalindrome.
 
-
-
+Prints the result based on the Boolean outcome.
