@@ -1,38 +1,35 @@
 HC17T8
 
 ```haskell
--- Generic fold using Semigroup
-foldWithSemigroup :: Semigroup a => [a] -> a
-foldWithSemigroup = foldr1 (<>)
+-- Define the Config data type
+data Config = Config
+  { loggingLevel :: Int     -- Higher is more verbose
+  , timeout      :: Int     -- Timeout in milliseconds
+  , retries      :: Int     -- Number of retry attempts
+  } deriving (Show, Eq)
 
--- Example: Using it with Severity
-data Severity = Low | Medium | High | Critical
-  deriving (Eq, Ord, Show)
+-- Semigroup instance: combine by max loggingLevel & retries, min timeout
+instance Semigroup Config where
+  Config l1 t1 r1 <> Config l2 t2 r2 =
+    Config (max l1 l2) (min t1 t2) (max r1 r2)
 
-instance Semigroup Severity where
-  (<>) = max
-
+-- Example usage
 main :: IO ()
 main = do
-  let severities = [Low, Medium, High, Critical]
-  print (foldWithSemigroup severities)  -- Output: Critical
+  let cfg1 = Config 2 5000 3
+  let cfg2 = Config 4 3000 5
+  let combined = cfg1 <> cfg2
+  print combined
+  -- Output: Config {loggingLevel = 4, timeout = 3000, retries = 5}
 ```
 
 ---
 
 ### 🧠 Why This Works
 
-- `foldr1` is perfect here because it doesn’t need an identity (`mempty`), just a binary operation (`<>`).
-- It requires a non-empty list, so if you want to handle empty lists safely, you could use `foldr` with a default or switch to `Monoid`.
+- `max` for `loggingLevel` and `retries` ensures we keep the more aggressive settings.
+- `min` for `timeout` ensures we respect the stricter constraint.
+- This is great for merging layered configs (e.g. default + user + environment).
 
----
 
-### 🔒 Optional: Safer Version Using Monoid
-
-If you want to handle empty lists gracefully:
-
-```haskell
-foldWithMonoid :: Monoid a => [a] -> a
-foldWithMonoid = foldr (<>) mempty
-```
 
