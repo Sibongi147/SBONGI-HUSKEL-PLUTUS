@@ -1,33 +1,26 @@
 HC17T4
-```haskell
-import Data.Monoid
 
--- Sum newtype wrapping a numeric value
+```haskell
+-- Define the Sum newtype
 newtype Sum a = Sum { getSum :: a }
   deriving (Eq, Show)
 
--- Semigroup instance for Sum
+-- Semigroup instance using addition
 instance Num a => Semigroup (Sum a) where
   Sum x <> Sum y = Sum (x + y)
 
--- Monoid instance for Sum with identity 0
+-- Monoid instance with identity element 0
 instance Num a => Monoid (Sum a) where
   mempty = Sum 0
-  mappend = (<>)
 
--- Example usage
+-- Main function to test the Monoid behavior
 main :: IO ()
 main = do
-  print $ getSum $ Sum 5 <> Sum 10    -- 15
-  print $ getSum $ mempty <> Sum 7    -- 7
-  print $ getSum mempty                -- 0
+  print (Sum 3 <> Sum 7)                    -- Output: Sum {getSum = 10}
+  print (mempty <> Sum 5)                   -- Output: Sum {getSum = 5}
+  print (mconcat [Sum 1, Sum 2, Sum 3])     -- Output: Sum {getSum = 6}
 ```
 
-**Explanation:**
+### ✅ How to Run It
+Paste this directly into the OnlineGDB Haskell editor **without any formatting wrappers**—just the code above. That should compile and run without errors.
 
-* `Sum` wraps a numeric value.
-* `Semigroup` instance defines `<>` as addition.
-* `Monoid` instance sets `mempty` to `Sum 0`.
-* `mappend` uses `<>` from `Semigroup`.
-
-This matches the usual monoid for sums where the identity is zero.
