@@ -1,16 +1,38 @@
 HC17T8
-```haskell
-import Data.Semigroup (Semigroup, (<>))
 
+```haskell
+-- Generic fold using Semigroup
 foldWithSemigroup :: Semigroup a => [a] -> a
 foldWithSemigroup = foldr1 (<>)
 
--- Example usage with Sum (from Data.Monoid)
-import Data.Monoid (Sum(..))
+-- Example: Using it with Severity
+data Severity = Low | Medium | High | Critical
+  deriving (Eq, Ord, Show)
 
-example :: Sum Int
-example = foldWithSemigroup [Sum 1, Sum 2, Sum 3]  -- Result: Sum {getSum = 6}
+instance Semigroup Severity where
+  (<>) = max
 
 main :: IO ()
-main = print example
+main = do
+  let severities = [Low, Medium, High, Critical]
+  print (foldWithSemigroup severities)  -- Output: Critical
 ```
+
+---
+
+### 🧠 Why This Works
+
+- `foldr1` is perfect here because it doesn’t need an identity (`mempty`), just a binary operation (`<>`).
+- It requires a non-empty list, so if you want to handle empty lists safely, you could use `foldr` with a default or switch to `Monoid`.
+
+---
+
+### 🔒 Optional: Safer Version Using Monoid
+
+If you want to handle empty lists gracefully:
+
+```haskell
+foldWithMonoid :: Monoid a => [a] -> a
+foldWithMonoid = foldr (<>) mempty
+```
+
