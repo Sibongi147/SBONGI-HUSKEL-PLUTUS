@@ -1,25 +1,25 @@
 HC16T6
 
-````haskell
 ```haskell
--- | Recursive function to return the nth Fibonacci number
+-- Efficient Fibonacci using tail recursion
 fib :: Int -> Integer
-fib 0 = 0
-fib 1 = 1
-fib n = fib (n - 1) + fib (n - 2)
+fib n = fibHelper n 0 1
+  where
+    fibHelper 0 a _ = a
+    fibHelper n a b = fibHelper (n - 1) b (a + b)
 
--- Example usage
 main :: IO ()
 main = do
-  putStrLn "Enter the position of the Fibonacci number:"
-  input <- getLine
-  let n = read input :: Int
-  putStrLn ("The " ++ show n ++ "th Fibonacci number is: " ++ show (fib n))
+    putStrLn "Enter n:"
+    input <- getLine
+    let n = read input :: Int
+    print $ fib n
 ```
-````
 
-### ✅ Notes:
+---
 
-* The function `fib` is defined recursively.
-* The result is of type `Integer` to support larger Fibonacci numbers.
-* The program reads user input and calculates the nth Fibonacci number.
+### 🛠️ Tips for OnlineGDB
+- Make sure there’s **no comment block** (`{-|`) at the top unless it’s properly closed with `-}`.
+- The file should be named `main.hs` and contain a `main :: IO ()` function.
+- Avoid placing `import` statements after `main`—OnlineGDB expects them at the top.
+
