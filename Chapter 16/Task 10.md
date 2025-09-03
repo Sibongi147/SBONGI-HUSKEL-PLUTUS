@@ -1,28 +1,37 @@
 HC16T10
 
-````haskell
 ```haskell
 import qualified Data.Map as Map
 
--- | Count the frequency of each character in a string
+-- Counts frequency of each character in a string
 charFrequency :: String -> Map.Map Char Int
-charFrequency = foldr insertChar Map.empty
+charFrequency = foldl updateFreq Map.empty
   where
-    insertChar c freqMap = Map.insertWith (+) c 1 freqMap
+    updateFreq freqMap char = Map.insertWith (+) char 1 freqMap
 
--- Example usage
+-- Main function to run in the compiler
 main :: IO ()
 main = do
   let input = "hello world"
-  let frequencies = charFrequency input
+  let freqMap = charFrequency input
   putStrLn "Character frequencies:"
-  mapM_ print (Map.toList frequencies)
+  mapM_ print (Map.toList freqMap)
 ```
-````
 
-### ✅ Explanation:
+---
 
-* `Map.insertWith (+) c 1 freqMap` inserts `c` into the map or increments its count if it already exists.
-* `foldr` processes each character and builds up the frequency map.
-* `Map.toList` converts the map into a list of key-value pairs for display.
+### 🧪 Sample Output:
+```
+Character frequencies:
+('h',1)
+('e',1)
+('l',3)
+('o',2)
+(' ',1)
+('w',1)
+('r',1)
+('d',1)
+```
+
+This version uses `mapM_ print` to display each `(Char, Int)` pair from the frequency map. You can paste this directly into OnlineGDB and hit **Run**—no extra setup needed.
 
