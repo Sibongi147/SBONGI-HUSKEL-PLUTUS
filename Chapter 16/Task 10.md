@@ -33,5 +33,5 @@ Character frequencies:
 ('d',1)
 ```
 
-This version uses `mapM_ print` to display each `(Char, Int)` pair from the frequency map. You can paste this directly into OnlineGDB and hit **Run**—no extra setup needed.
+
 
