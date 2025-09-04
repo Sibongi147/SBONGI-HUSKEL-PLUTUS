@@ -1,38 +1,40 @@
 HC19T10
 
 ```haskell
--- | Combines two Either values using a function in applicative style.
-combineResults :: Either e a -> Either e b -> Either e (a, b)
-combineResults = liftA2 (,)
-
--- We need to import liftA2
+-- Put imports at the top
 import Control.Applicative (liftA2)
 
--- Example usage:
-example1 :: Either String (Int, Int)
-example1 = combineResults (Right 5) (Right 10)
--- Result: Right (5,10)
+-- Function to combine two Either values using applicative style
+combineResults :: Either e (a -> b) -> Either e a -> Either e b
+combineResults = (<*>)
 
-example2 :: Either String (Int, Int)
-example2 = combineResults (Left "Error1") (Right 10)
--- Result: Left "Error1"
-
-example3 :: Either String (Int, Int)
-example3 = combineResults (Right 5) (Left "Error2")
--- Result: Left "Error2"
-
+-- Example usage
 main :: IO ()
 main = do
-  print example1
-  print example2
-  print example3
+  let f = Right (+1) :: Either String (Int -> Int)
+  let x = Right 5    :: Either String Int
+  let err = Left "error" :: Either String Int
+
+  print (combineResults f x)     -- Output: Right 6
+  print (combineResults f err)   -- Output: Left "error"
 ```
 
 ---
 
-### Explanation:
+### 🧠 Explanation
 
-* `liftA2 (,)` creates a function that takes two applicative values and combines them into a tuple.
-* Since `Either e` is an instance of `Applicative`, it applies the function only if both values are `Right`; otherwise it propagates the first `Left`.
-* This style elegantly combines two computations that might fail with errors of type `e`.
+- `(<*>)` is the applicative operator for `Either`, applying a function inside `Right` to a value inside another `Right`.
+- If either side is `Left`, the result is `Left`—it short-circuits on failure.
+- `liftA2` is a helper that lifts a binary function into the applicative context, but you don’t even need it here unless you're combining two values with a binary function.
+
+---
+
+### 🔧 Optional: Using `liftA2`
+
+If you want to combine two `Right` values with a binary function like addition:
+
+```haskell
+combineAdd :: Either e Int -> Either e Int -> Either e Int
+combineAdd = liftA2 (+)
+```
 
